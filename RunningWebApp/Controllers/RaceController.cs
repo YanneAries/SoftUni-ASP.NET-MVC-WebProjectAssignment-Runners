@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RunningWebApp.Data;
 
 namespace RunningWebApp.Controllers
 {
     public class RaceController : Controller
     {
-        public IActionResult Index()
+		private readonly ApplicationDbContext context;
+
+		public RaceController(ApplicationDbContext context)
+		{
+			this.context = context;
+		}
+		public IActionResult Index()
         {
-            return View();
+			var races = context.Races.ToList();
+            return View(races);
         }
     }
 }
