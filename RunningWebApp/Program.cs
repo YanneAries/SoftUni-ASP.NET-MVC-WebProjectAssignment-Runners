@@ -18,6 +18,13 @@ namespace RunningWebApp
 
             var app = builder.Build();
 
+            // PowerShell seed command (cd RunningWebApp, dotnet run seeddata)
+            if (args.Length == 1 && args[0].ToLower() == "seeddata")
+            {
+                //Seed.SeedUsersAndRolesAsync(app); -> for when identity is done
+                Seed.SeedData(app);
+            }
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
