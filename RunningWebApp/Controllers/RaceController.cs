@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RunningWebApp.Data;
 using RunningWebApp.Interfaces;
 using RunningWebApp.Models;
+using RunningWebApp.Repository;
 
 namespace RunningWebApp.Controllers
 {
@@ -26,5 +27,21 @@ namespace RunningWebApp.Controllers
             Race race = await raceRepository.GetByIdAsync(id);
             return View(race);
         }
-    }
+
+		public IActionResult Create()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult Create(Race race)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(race);
+			}
+			raceRepository.Add(race);
+			return RedirectToAction("Index");
+		}
+	}
 }
