@@ -3,6 +3,7 @@ using RunningWebApp.Data;
 using RunningWebApp.Helpers;
 using RunningWebApp.Interfaces;
 using RunningWebApp.Repository;
+using RunningWebApp.Services;
 
 namespace RunningWebApp
 {
@@ -16,6 +17,7 @@ namespace RunningWebApp
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IClubRepository, ClubRepository>();
             builder.Services.AddScoped<IRaceRepository, RaceRepository>();
+            builder.Services.AddScoped<IPhotoService, PhotoService>();
             builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {

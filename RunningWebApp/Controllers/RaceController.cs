@@ -4,16 +4,20 @@ using RunningWebApp.Data;
 using RunningWebApp.Interfaces;
 using RunningWebApp.Models;
 using RunningWebApp.Repository;
+using RunningWebApp.Services;
+using RunningWebApp.ViewModels;
 
 namespace RunningWebApp.Controllers
 {
     public class RaceController : Controller
     {
 		private readonly IRaceRepository raceRepository;
+		private readonly IPhotoService photoService;
 
-		public RaceController(IRaceRepository raceRepository)
+		public RaceController(IRaceRepository raceRepository, IPhotoService photoService)
 		{
 			this.raceRepository = raceRepository;
+			this.photoService = photoService;
 		}
 
 		public async Task<IActionResult> Index()
@@ -34,14 +38,33 @@ namespace RunningWebApp.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Create(Race race)
+		public async Task<IActionResult> Create(RaceCreateViewModel raceVM)
 		{
-			if (!ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
-				return View(race);
+				var result = await photoService.AddPhotoAsync(raceVM.Image);
+
+				var race = new Race
+				{
+					Title = raceVM.Title,
+					Description = raceVM.Description,
+					Image = result.Url.ToString(),
+					Address = new Address
+					{
+						Street = raceVM.Address.Street,
+						City = raceVM.Address.City,
+						State = raceVM.Address.State
+					}
+				};
+				raceRepository.Add(race);
+				return RedirectToAction("Index");
 			}
-			raceRepository.Add(race);
-			return RedirectToAction("Index");
+			else
+			{
+				ModelState.AddModelError("", "Photo upload failed");
+			}
+
+			return View(raceVM);
 		}
 	}
 }
