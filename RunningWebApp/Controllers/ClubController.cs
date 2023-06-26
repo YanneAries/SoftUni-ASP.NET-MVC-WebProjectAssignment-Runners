@@ -99,8 +99,10 @@ namespace RunningWebApp.Controllers
             {
                 try
                 {
-                    await photoService.DeletePhotoAsync(userClub.Image);
-                }
+					var img = new FileInfo(userClub.Image);
+					var publicId = Path.GetFileNameWithoutExtension(img.Name);
+					await photoService.DeletePhotoAsync(publicId);
+				}
                 catch (Exception e)
                 {
                     ModelState.AddModelError("", "Could not delete photo");
