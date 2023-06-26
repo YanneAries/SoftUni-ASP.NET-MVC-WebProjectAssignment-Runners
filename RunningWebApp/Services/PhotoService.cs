@@ -28,11 +28,12 @@ namespace RunningWebApp.Services
 				var uploadParams = new ImageUploadParams
 				{
 					File = new FileDescription(file.FileName, stream),
-					Transformation = new Transformation()
-					.Height(500)
-					.Width(500)
-					.Crop("fill")
-					.Gravity("face")
+					// - Does it automatically, configure if there's issues
+					//Transformation = new Transformation()
+					//.Height(500)
+					//.Width(500)
+					//.Crop("fill")
+					//.Gravity("face")
 				};
 				uploadResult = await cloudinary.UploadAsync(uploadParams);
 			}
