@@ -128,5 +128,27 @@ namespace RunningWebApp.Controllers
                 return View(clubEVM);
             }
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var clubDetails = await clubRepository.GetByIdAsync(id);
+            if (clubDetails == null) { return View("Error"); }
+            return View(clubDetails);
+        }
+
+		[HttpPost, ActionName("Delete")]
+		public async Task<IActionResult> DeleteClub(int id)
+		{
+			var clubDetails = await clubRepository.GetByIdAsync(id);
+            //Deleting pic from cloudinary
+			var img = new FileInfo(clubDetails.Image);
+			var publicId = Path.GetFileNameWithoutExtension(img.Name);
+			await photoService.DeletePhotoAsync(publicId);
+
+			if (clubDetails == null) return View("Error");
+
+			clubRepository.Delete(clubDetails);
+			return RedirectToAction("Index");
+		}
 	}
 }
