@@ -49,6 +49,7 @@ namespace RunningWebApp.Controllers
 					Title = raceVM.Title,
 					Description = raceVM.Description,
 					Image = result.Url.ToString(),
+					RaceCategory = raceVM.RaceCategory,
 					Address = new Address
 					{
 						Street = raceVM.Address.Street,
@@ -115,6 +116,7 @@ namespace RunningWebApp.Controllers
 					Title = raceEVM.Title,
 					Description = raceEVM.Description,
 					Image = photoResult.Url.ToString(),
+					RaceCategory = raceEVM.RaceCategory,
 					AddressId = raceEVM.AddressId,
 					Address = raceEVM.Address
 				};

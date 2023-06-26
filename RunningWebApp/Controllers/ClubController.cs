@@ -50,6 +50,7 @@ namespace RunningWebApp.Controllers
                     Title = clubVM.Title,
                     Description = clubVM.Description,
                     Image = result.Url.ToString(),
+                    ClubCategory = clubVM.ClubCategory,
                     Address = new Address
                     {
                         Street = clubVM.Address.Street,
@@ -116,6 +117,7 @@ namespace RunningWebApp.Controllers
 					Title = clubEVM.Title,
 					Description = clubEVM.Description,
 					Image = photoResult.Url.ToString(),
+					ClubCategory = clubEVM.ClubCategory,
 					AddressId = clubEVM.AddressId,
 					Address = clubEVM.Address
 				};
