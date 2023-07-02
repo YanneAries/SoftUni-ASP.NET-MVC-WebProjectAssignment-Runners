@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RunningWebApp.Data;
 using RunningWebApp.Helpers;
 using RunningWebApp.Interfaces;
+using RunningWebApp.Models;
 using RunningWebApp.Repository;
 using RunningWebApp.Services;
 
@@ -9,7 +12,7 @@ namespace RunningWebApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -23,14 +26,20 @@ namespace RunningWebApp
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddMemoryCache();
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
 
             var app = builder.Build();
 
             // PowerShell seed command (cd RunningWebApp, dotnet run seeddata)
             if (args.Length == 1 && args[0].ToLower() == "seeddata")
             {
-                //Seed.SeedUsersAndRolesAsync(app); -> for when identity is done
-                Seed.SeedData(app);
+                await Seed.SeedUsersAndRolesAsync(app); //seed after identity implementation
+                //Seed.SeedData(app); was seeded previously
             }
 
             // Configure the HTTP request pipeline.
