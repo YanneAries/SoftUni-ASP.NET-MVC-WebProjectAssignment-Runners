@@ -6,6 +6,7 @@ using RunningWebApp.Models;
 using RunningWebApp.Repository;
 using RunningWebApp.Services;
 using RunningWebApp.ViewModels;
+using System.Text;
 
 namespace RunningWebApp.Controllers
 {
@@ -75,7 +76,7 @@ namespace RunningWebApp.Controllers
 
 		public async Task<IActionResult> Edit(int id)
 		{
-			var race = await raceRepository.GetByIdAsync(id);
+            var race = await raceRepository.GetByIdAsync(id);
 			if (race == null) return View("Error");
 			var raceEVM = new RaceEditViewModel
 			{
@@ -85,6 +86,7 @@ namespace RunningWebApp.Controllers
 				Address = race.Address,
 				URL = race.Image,
 				RaceCategory = race.RaceCategory,
+				AppUserId = race.AppUserId
             };
 			return View(raceEVM);
 		}
@@ -124,7 +126,7 @@ namespace RunningWebApp.Controllers
 					RaceCategory = raceEVM.RaceCategory,
 					AddressId = raceEVM.AddressId,
 					Address = raceEVM.Address,
-                    //AppUserId = raceEVM.AppUserId
+                    AppUserId = raceEVM.AppUserId
                 };
 
 				raceRepository.Update(race);

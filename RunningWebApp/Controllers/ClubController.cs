@@ -85,7 +85,8 @@ namespace RunningWebApp.Controllers
                 AddressId = (int)club.AddressId,
                 Address = club.Address,
                 URL = club.Image,
-                ClubCategory = club.ClubCategory
+                ClubCategory = club.ClubCategory,
+                AppUserId = club.AppUserId
             };
             return View(clubEVM);
         }
@@ -124,8 +125,9 @@ namespace RunningWebApp.Controllers
 					Image = photoResult.Url.ToString(),
 					ClubCategory = clubEVM.ClubCategory,
 					AddressId = clubEVM.AddressId,
-					Address = clubEVM.Address
-				};
+					Address = clubEVM.Address,
+                    AppUserId = clubEVM.AppUserId
+                };
 
 				clubRepository.Update(club);
 				return RedirectToAction("Index");
