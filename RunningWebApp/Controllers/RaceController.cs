@@ -13,11 +13,13 @@ namespace RunningWebApp.Controllers
     {
 		private readonly IRaceRepository raceRepository;
 		private readonly IPhotoService photoService;
+		private readonly IHttpContextAccessor httpContextAccessor;
 
-		public RaceController(IRaceRepository raceRepository, IPhotoService photoService)
+		public RaceController(IRaceRepository raceRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
 		{
 			this.raceRepository = raceRepository;
 			this.photoService = photoService;
+			this.httpContextAccessor = httpContextAccessor;
 		}
 
 		public async Task<IActionResult> Index()
@@ -34,8 +36,10 @@ namespace RunningWebApp.Controllers
 
 		public IActionResult Create()
 		{
-			return View();
-		}
+            var currUserId = httpContextAccessor.HttpContext?.User.GetUserId();
+            var raceCreateVM = new RaceCreateViewModel { AppUserId = currUserId };
+            return View(raceCreateVM);
+        }
 
 		[HttpPost]
 		public async Task<IActionResult> Create(RaceCreateViewModel raceVM)
@@ -50,7 +54,8 @@ namespace RunningWebApp.Controllers
 					Description = raceVM.Description,
 					Image = result.Url.ToString(),
 					RaceCategory = raceVM.RaceCategory,
-					Address = new Address
+                    AppUserId = raceVM.AppUserId,
+                    Address = new Address
 					{
 						Street = raceVM.Address.Street,
 						City = raceVM.Address.City,
@@ -79,8 +84,8 @@ namespace RunningWebApp.Controllers
 				AddressId = (int)race.AddressId,
 				Address = race.Address,
 				URL = race.Image,
-				RaceCategory = race.RaceCategory
-			};
+				RaceCategory = race.RaceCategory,
+            };
 			return View(raceEVM);
 		}
 
@@ -118,8 +123,9 @@ namespace RunningWebApp.Controllers
 					Image = photoResult.Url.ToString(),
 					RaceCategory = raceEVM.RaceCategory,
 					AddressId = raceEVM.AddressId,
-					Address = raceEVM.Address
-				};
+					Address = raceEVM.Address,
+                    //AppUserId = raceEVM.AppUserId
+                };
 
 				raceRepository.Update(race);
 				return RedirectToAction("Index");

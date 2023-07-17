@@ -18,15 +18,15 @@ namespace RunningWebApp.Repository
 
         public async Task<List<Club>> GetAllUserClubs()
         {
-            var currentUser = httpContextAccessor.HttpContext?.User;
-            var userClubs = context.Clubs.Where(r => r.AppUser.Id == currentUser.ToString());
+            var currentUser = httpContextAccessor.HttpContext?.User.GetUserId();
+            var userClubs = context.Clubs.Where(r => r.AppUser.Id == currentUser);
             return await userClubs.ToListAsync();
         }
 
         public async Task<List<Race>> GetAllUserRaces()
         {
-            var currentUser = httpContextAccessor.HttpContext?.User;
-            var userRaces = context.Races.Where(r => r.AppUser.Id == currentUser.ToString());
+            var currentUser = httpContextAccessor.HttpContext?.User.GetUserId();
+            var userRaces = context.Races.Where(r => r.AppUser.Id == currentUser);
             return await userRaces.ToListAsync();
         }
     }
