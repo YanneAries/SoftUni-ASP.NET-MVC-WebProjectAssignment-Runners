@@ -29,5 +29,27 @@ namespace RunningWebApp.Repository
             var userRaces = context.Races.Where(r => r.AppUser.Id == currentUser);
             return await userRaces.ToListAsync();
         }
+
+        public async Task<AppUser> GetUserById(string id)
+        {
+            return await context.Users.FindAsync(id);
+        }
+
+        public async Task<AppUser> GetByIdNoTracking(string id)
+        {
+            return await context.Users.Where(u => u.Id == id).AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public bool Update(AppUser user)
+        {
+            context.Users.Update(user);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }
