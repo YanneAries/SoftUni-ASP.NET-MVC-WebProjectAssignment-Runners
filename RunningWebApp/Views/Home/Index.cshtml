@@ -19,7 +19,14 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
-            <h1 class="fw-light">Running clubs near @Model.City, @Model.State</h1>
+            @if (Model.City == Model.State)
+            {
+                <h1 class="fw-light">Running clubs near @Model.City</h1>
+            }
+            else
+            {
+                <h1 class="fw-light">Running clubs near @Model.City, @Model.State</h1>
+            }
             @if (Model.Clubs == null)
             {
                 <h1 class="fw-light">
