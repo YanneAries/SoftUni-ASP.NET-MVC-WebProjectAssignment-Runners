@@ -1,25 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json;
 using RunningWebApp.Helpers;
 using RunningWebApp.Interfaces;
 using RunningWebApp.Models;
-using RunningWebApp.Repository;
 using RunningWebApp.ViewModels;
 using System.Diagnostics;
 using System.Globalization;
-using System.Net;
 
 namespace RunningWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IClubRepository clubRepository;
 
-        public HomeController(ILogger<HomeController> logger, IClubRepository clubRepository)
+        public HomeController(IClubRepository clubRepository)
         {
-            _logger = logger;
             this.clubRepository = clubRepository;
         }
 

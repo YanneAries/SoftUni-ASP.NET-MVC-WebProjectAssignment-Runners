@@ -6,34 +6,34 @@
 <!-- Page Content -->
 <div class="container">
 
-    <!-- Portfolio Item Heading -->
+    <!-- Item Heading -->
     <h1 class="my-4">
-        Page Heading
-        <small>Secondary Text</small>
+        @Model.Title
+        <small>(additional text placeholder)</small>
     </h1>
 
     <!-- Portfolio Item Row -->
     <div class="row">
 
         <div class="col-md-8">
-            <img class="img-fluid" src="@Model.Image" alt="">
+            <img class="img-fluid" src="@Model.Image" alt="Image failed to load">
         </div>
 
         <div class="col-md-4">
-            <h3 class="my-3">@Model.Title</h3>
+            <h3 class="my-3">Club Description</h3>
             <p>@Model.Description</p>
             <h3 class="my-3">Location</h3>
             <ul>
                 <li>@Model.Address.City</li>
                 <li>@Model.Address.State</li>
-                <li>@Model.ClubCategory</li>
+                <li>Category: @Model.ClubCategory</li>
             </ul>
         </div>
 
     </div>
     <!-- /.row -->
     <!-- Related Projects Row -->
-    <h3 class="my-4">Related Projects</h3>
+    <h3 class="my-4">Related Races/People placeholders</h3>
 
     <div class="row">
 

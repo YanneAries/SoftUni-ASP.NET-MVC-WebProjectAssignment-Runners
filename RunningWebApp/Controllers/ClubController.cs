@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
-using RunningWebApp.Data;
 using RunningWebApp.Interfaces;
 using RunningWebApp.Models;
-using RunningWebApp.Repository;
 using RunningWebApp.ViewModels;
-using System.Diagnostics.Eventing.Reader;
 
 namespace RunningWebApp.Controllers
 {
@@ -16,7 +11,8 @@ namespace RunningWebApp.Controllers
         private readonly IPhotoService photoService;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ClubController(IClubRepository clubRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
+        public ClubController(IClubRepository clubRepository,
+            IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
         {
             this.clubRepository = clubRepository;
             this.photoService = photoService;

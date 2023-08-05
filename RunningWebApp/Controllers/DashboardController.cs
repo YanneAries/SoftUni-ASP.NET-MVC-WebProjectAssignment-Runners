@@ -1,14 +1,12 @@
 ﻿using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Mvc;
-using RunningWebApp.Data;
 using RunningWebApp.Interfaces;
 using RunningWebApp.Models;
-using RunningWebApp.Repository;
 using RunningWebApp.ViewModels;
 
 namespace RunningWebApp.Controllers
 {
-	public class DashboardController : Controller
+    public class DashboardController : Controller
 	{
 		private readonly IDashboardRepository dashboardRepository;
         private readonly IHttpContextAccessor httpContextAccessor;

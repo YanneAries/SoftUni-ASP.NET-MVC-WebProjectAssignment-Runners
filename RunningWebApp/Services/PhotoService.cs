@@ -28,7 +28,7 @@ namespace RunningWebApp.Services
 				var uploadParams = new ImageUploadParams
 				{
 					File = new FileDescription(file.FileName, stream),
-					// - Does it automatically, configure if there's issues
+					// - Tries to resize automatically, configure if there's issues
 					//Transformation = new Transformation()
 					//.Height(500)
 					//.Width(500)

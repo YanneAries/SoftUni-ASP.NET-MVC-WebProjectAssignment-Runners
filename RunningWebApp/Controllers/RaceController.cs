@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RunningWebApp.Data;
 using RunningWebApp.Interfaces;
 using RunningWebApp.Models;
-using RunningWebApp.Repository;
-using RunningWebApp.Services;
 using RunningWebApp.ViewModels;
-using System.Text;
 
 namespace RunningWebApp.Controllers
 {
@@ -16,7 +11,8 @@ namespace RunningWebApp.Controllers
 		private readonly IPhotoService photoService;
 		private readonly IHttpContextAccessor httpContextAccessor;
 
-		public RaceController(IRaceRepository raceRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
+		public RaceController(IRaceRepository raceRepository,
+			IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
 		{
 			this.raceRepository = raceRepository;
 			this.photoService = photoService;

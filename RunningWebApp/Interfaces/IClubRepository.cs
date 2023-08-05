@@ -1,9 +1,8 @@
 ﻿using RunningWebApp.Models;
-using System.Collections;
 
 namespace RunningWebApp.Interfaces
 {
-	public interface IClubRepository
+    public interface IClubRepository
 	{
 		Task<IEnumerable<Club>> GetAll();
 		Task<Club> GetByIdAsync(int id);
