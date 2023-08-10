@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RunningWebApp.Helpers;
 using RunningWebApp.Interfaces;
@@ -57,6 +58,11 @@ namespace RunningWebApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+            //if (statusCode == 404)
+            //{
+            //    return View("Error404");
+            //}
         }
     }
 }
