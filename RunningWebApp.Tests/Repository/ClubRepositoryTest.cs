@@ -83,5 +83,50 @@ namespace RunningWebApp.Tests.Repository
             result.Should().NotBeNull();
             result.Should().BeOfType<Task<Club>>();
         }
+
+        [Fact]
+        public async void ClubRepository_GetAll_ReturnsList()
+        {
+            //Arrange
+            var dbContext = await GetDbContext();
+            var clubRepository = new ClubRepository(dbContext);
+
+            //Act
+            var result = await clubRepository.GetAll();
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<List<Club>>();
+        }
+
+        //[Fact] -- todo: add repo count method
+        //public async void ClubRepository_SuccessfulDelete_ReturnsTrue()
+        //{
+        //    //Arrange
+        //    var club = new Club()
+        //    {
+        //        Title = "Running Club 1",
+        //        Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
+        //        Description = "This is the description of the first cinema",
+        //        ClubCategory = ClubCategory.City,
+        //        Address = new Address()
+        //        {
+        //            Street = "123 Main St",
+        //            City = "Charlotte",
+        //            State = "NC"
+        //        }
+        //    };
+        //    var dbContext = await GetDbContext();
+        //    var clubRepository = new ClubRepository(dbContext);
+
+        //    //Act
+        //    clubRepository.Add(club);
+        //    var result = clubRepository.Delete(club);
+        //    var count = await clubRepository.>>GetCountAsync()<<;
+
+        //    //Assert
+        //    result.Should().BeTrue();
+        //    count.Should().Be(0);
+        //}
     }
 }
